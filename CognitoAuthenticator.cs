@@ -3,9 +3,6 @@ using RestSharp.Authenticators;
 
 namespace RestSharpCognitoAuthenticator;
 
-/// <summary>
-/// AWS Cognito用のAuthenticator
-/// </summary>
 public class CognitoAuthenticator : AuthenticatorBase
 {
     private readonly string baseUrl;
@@ -44,7 +41,6 @@ public class CognitoAuthenticator : AuthenticatorBase
 
     private async Task<string> GetToken()
     {
-        // 認証クライアント
         var authClient = new RestClient(
             new RestClientOptions(baseUrl)
             {
@@ -52,8 +48,7 @@ public class CognitoAuthenticator : AuthenticatorBase
             }
         );
 
-        var body =
-$@"{{
+        var body = $@"{{
 	""AuthFlow"": ""USER_PASSWORD_AUTH"",
 	""ClientId"": ""{clientId}"",
 	""AuthParameters"": {{
