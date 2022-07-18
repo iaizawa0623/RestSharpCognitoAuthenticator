@@ -1,31 +1,45 @@
 ﻿using RestSharp;
 using RestSharpCognitoAuthenticator;
 
-// 外部ファイルで設定できる項目
+#region // 外部ファイルで設定できる項目
+//  認証サーバーのURL
 const string idpUrl = "https://cognito-idp.ap-northeast-1.amazonaws.com/";
 const string clientId = "2qiutf2l0qlq5agfrbb0di47kj";
 const string username = "developer";
 const string password = "IvDF0dZ_";
-const string apiUrl = "https://egd0hq2z6h.execute-api.ap-northeast-1.amazonaws.com/Prod/";
+//  APIサーバーのURL
+const string apiUrl = "https://dxy1ztfd01.execute-api.ap-northeast-1.amazonaws.com/Prod/";
+#endregion
 
-// クライアント
-var client = new RestClient(
-    new RestClientOptions(apiUrl) {}
-){
-	Authenticator = new CognitoAuthenticator(
-		baseUrl : idpUrl,
-		clientId: clientId,
-	    username: username,
-	    password: password
-	)
+// APIクライアント
+var client = new RestClient(apiUrl)
+{
+    Authenticator = new CognitoAuthenticator(
+        baseUrl: idpUrl,
+        clientId: clientId,
+        username: username,
+        password: password
+    )
 };
 
-//	チケット数の取得
-var issuerRequest = new RestRequest("/users");
-//var issuerRequest = new RestRequest("/issuer");
-var response = await client.GetAsync(issuerRequest);
+#region //	チケット数リクエスト
+var issuerRequest = new RestRequest($"/issuers/{username}");
+var issuerResponse = await client.GetAsync(issuerRequest);
+Console.WriteLine(issuerResponse?.Content);
+#endregion
 
-//	JSON文字列
-var content = response.Content;
-Console.WriteLine(content);
-
+#region //	チケット発行リクエスト
+var ticketNo = 1;
+var serialNo = $"{username}20220719{ticketNo}";
+var body = $@"{{
+	""ticketType"": ""digital"",
+	""survey"": {{
+		""性別"": ""女性"",
+		""年齢"": ""40代""
+	}}
+}}";
+var ticketRequet = new RestRequest($"/tickets/{serialNo}")
+    .AddJsonBody(body);
+var ticketResponse = await client.PostAsync(ticketRequet);
+Console.WriteLine(ticketResponse?.Content);
+#endregion
