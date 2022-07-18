@@ -30,7 +30,7 @@ Console.WriteLine(issuerResponse?.Content);
 
 #region //	チケット発行リクエスト
 var ticketNo = 1;
-var serialNo = $"{username}20220719{ticketNo}";
+var serialNo = $"{username}{DateTime.Today:yyyyMMdd}{ticketNo}";
 var body = $@"{{
 	""ticketType"": ""digital"",
 	""survey"": {{
