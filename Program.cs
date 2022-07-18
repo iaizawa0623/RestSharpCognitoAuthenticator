@@ -22,13 +22,12 @@ var client = new RestClient(apiUrl)
     )
 };
 
-#region //	チケット数リクエスト
+//	チケット数リクエスト
 var issuerRequest = new RestRequest($"/issuers/{username}");
 var issuerResponse = await client.GetAsync(issuerRequest);
 Console.WriteLine(issuerResponse?.Content);
-#endregion
 
-#region //	チケット発行リクエスト
+//	チケット発行リクエスト
 var ticketNo = 1;
 var serialNo = $"{username}{DateTime.Today:yyyyMMdd}{ticketNo}";
 var body = $@"{{
@@ -42,4 +41,4 @@ var ticketRequet = new RestRequest($"/tickets/{serialNo}")
     .AddJsonBody(body);
 var ticketResponse = await client.PostAsync(ticketRequet);
 Console.WriteLine(ticketResponse?.Content);
-#endregion
+
