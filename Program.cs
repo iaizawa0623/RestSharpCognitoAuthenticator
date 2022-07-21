@@ -1,4 +1,4 @@
-﻿using RestSharp;
+using RestSharp;
 using RestSharpCognitoAuthenticator;
 
 #region // 外部ファイルで設定できる項目
@@ -8,7 +8,7 @@ const string clientId = "2qiutf2l0qlq5agfrbb0di47kj";
 const string username = "developer";
 const string password = "IvDF0dZ_";
 //  APIサーバーのURL
-const string apiUrl = "https://dxy1ztfd01.execute-api.ap-northeast-1.amazonaws.com/Prod/";
+const string apiUrl = "https://api.bus-de-odekake.od-one.net";
 #endregion
 
 // APIクライアント
@@ -23,7 +23,7 @@ var client = new RestClient(apiUrl)
 };
 
 //	チケット数リクエスト
-var issuerRequest = new RestRequest($"/issuers/{username}");
+var issuerRequest = new RestRequest($"/publishers/{username}/{DateTime.Today:yyyyMMdd}");
 var issuerResponse = await client.GetAsync(issuerRequest);
 Console.WriteLine(issuerResponse?.Content);
 
