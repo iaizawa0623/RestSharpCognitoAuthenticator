@@ -8,7 +8,7 @@ RestSharp 用の Amazon Cognito のオーソライザー。
 Cognito 認証のとこをちょっとカプセル化しただけです。  
 必要だと思った部分しか実装されてないので、飽くまで参考程度にとどめることをお勧めします。
 
-## For Exsample
+## Usage
 ```
 var client = new RestClient(apiUrl)
 {
