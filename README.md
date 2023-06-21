@@ -2,11 +2,9 @@
 
 Amazon Cognito authorizer for RestSharp.  
 This is just a little encapsulation of the Cognito authentication part.  
-It is implemented only as I thought necessary, so I recommend that you use it only as a reference.
 
 RestSharp 用の Amazon Cognito のオーソライザー。  
 Cognito 認証のとこをちょっとカプセル化しただけです。  
-必要だと思った部分しか実装されてないので、飽くまで参考程度にとどめることをお勧めします。
 
 ## Usage
 ```
@@ -19,6 +17,10 @@ var client = new RestClient(apiUrl)
         password: password
     )
 };
+
+var helloRequest = new RestRequest($"/hello");
+var helloResponse = await client.GetAsync(helloRequest);
+Console.WriteLine(helloResponse?.Content);
 ```
 
 ## MIT License Summary (ja)
