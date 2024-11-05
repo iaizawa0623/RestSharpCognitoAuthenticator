@@ -11,6 +11,6 @@
     <None Remove="RestSharp" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="RestSharp" Version="108.0.1" />
+    <PackageReference Include="RestSharp" Version="112.0.0" />
   </ItemGroup>
 </Project>
